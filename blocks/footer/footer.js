@@ -1,3 +1,4 @@
+// footer.js
 import { getMetadata } from '../../scripts/aem.js';
 import { loadFragment } from '../fragment/fragment.js';
 
@@ -13,8 +14,28 @@ export default async function decorate(block) {
 
   // decorate footer DOM
   block.textContent = '';
-  const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+  
+  // Create main footer content div
+  const footerMain = document.createElement('div');
+  footerMain.className = 'footer-main';
+  
+  // Create bottom footer div
+  const footerBottom = document.createElement('div');
+  footerBottom.className = 'footer-bottom';
+  
+  // Move all content except the last div to footerMain
+  const children = Array.from(fragment.children);
+  children.slice(0, -1).forEach(child => footerMain.appendChild(child));
+  
+  // Move the last div (containing logo and copyright) to footerBottom
+  const lastDiv = children[children.length - 1];
+  footerBottom.appendChild(lastDiv);
 
+  // Create footer wrapper
+  const footer = document.createElement('div');
+  footer.className = 'footer-wrapper';
+  footer.appendChild(footerMain);
+  footer.appendChild(footerBottom);
+  
   block.append(footer);
 }

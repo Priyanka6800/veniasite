@@ -104,6 +104,43 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
 }
 
 /**
+ * Adds text labels next to icons and makes them clickable in desktop view
+ * @param {Element} nav The nav element
+ */
+function addIconLabels(nav) {
+  const navTools = nav.querySelector('.nav-tools');
+  if (!navTools) return;
+  
+  const iconElements = navTools.querySelectorAll('ul li .icon');
+  
+  // Process each icon
+  iconElements.forEach((iconSpan) => {
+    const parentLi = iconSpan.closest('li');
+    if (!parentLi) return;
+    
+    const wrapper = document.createElement('a');
+    
+    parentLi.removeChild(iconSpan);
+    wrapper.appendChild(iconSpan);
+    
+    const textSpan = document.createElement('span');
+    textSpan.className = 'icon-text';
+    
+    if (iconSpan.classList.contains('icon-search')) {
+      textSpan.textContent = 'Search';
+      wrapper.href = 'https://www.google.com/';
+      wrapper.setAttribute('target', '_blank');
+    } else if (iconSpan.classList.contains('icon-user')) {
+      textSpan.textContent = 'Sign In';
+    }
+
+    wrapper.appendChild(textSpan);
+    
+    parentLi.appendChild(wrapper);
+  });
+}
+
+/**
  * loads and decorates the header, mainly the nav
  * @param {Element} block The header block element
  */
@@ -145,6 +182,7 @@ export default async function decorate(block) {
       });
     });
   }
+  addIconLabels(nav);
 
   // hamburger for mobile
   const hamburger = document.createElement('div');

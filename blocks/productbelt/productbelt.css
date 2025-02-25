@@ -1,0 +1,351 @@
+.productbelt {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 40px;
+}
+
+.active-thumbnail {
+    box-shadow: 0 0 10px 0 rgb(96 165 250);
+}
+
+.productbelt > div:first-child {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.productbelt > div:first-child img {
+    height: 150px;
+    cursor: pointer;
+    border: 1px solid #ddd;
+}
+
+.productbelt > div:nth-child(2) {
+    display: flex;
+    height: 500px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;   
+}
+
+.productbelt > div:nth-child(2) img {
+    width: 100%; 
+    height: auto;
+}
+
+.productbelt > div:last-child {
+    padding: 0 20px;    
+}
+
+.productbelt > div:last-child > div:first-child {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    gap: 5px;
+}
+
+.productbelt > div:last-child > div:first-child p:first-child {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.productbelt > div:last-child > div:first-child p:last-child {
+    color: #333;
+    margin-bottom: 20px;
+    font-size:20px;
+}
+
+.productbelt > div:last-child > div:nth-child(2) {
+    border-bottom: 1px solid #ddd;
+}
+
+.productbelt > div:last-child > div:nth-child(2) p:first-child {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.productbelt > div:last-child > div:nth-child(2) p:nth-child(2) {
+    font-size: 14px;
+}
+
+.size-buttons {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.size-button {
+    height: 40px;
+    border: 1px solid black;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    border-radius: 0;
+    background-color: white;
+    color: #333;
+}
+
+.size-button-selected {
+    background-color: #333;
+    color: #f0f7ff;
+}
+
+/* Quantity Control Styles */
+.productbelt > div:last-child > div:nth-child(3) {
+    border-bottom: 1px solid #ddd;
+}
+
+.quantity-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.quantity-button {
+    width: 10px;
+    /* height: 30px; */
+    border: 2px solid rgb(75 85 99);
+    background: white;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #333;
+}
+
+.quantity-input {
+    width: 60px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #333;
+    box-sizing: border-box;
+}
+
+.quantity-button.disabled {
+    opacity: 1;
+    cursor: not-allowed;
+    border-color: #999;
+    color: #333;
+}
+
+
+.quantity-input {
+    width: 70px;
+    height: 40px;
+    text-align: center;
+    border: 2px solid rgb(75 85 99);
+    box-sizing: border-box;
+    border-radius: 4px;
+}
+
+/* Cart and Favorites Section */
+
+.productbelt > div:last-child > div:last-child{
+    margin-left: 150px;
+}
+.productbelt > div:last-child > div:last-child p:first-child {
+    background: #ccc;
+    color: white;
+    padding: 5px;
+    width: 150px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 15px;
+    border-radius: 50px;
+
+}
+
+.productbelt > div:last-child > div:last-child p:last-child {
+    display: flex;
+    gap: 10px;
+    cursor: pointer;
+    color: #666;
+    font-size: 16px;
+}
+
+.productbelt > div:last-child > div:last-child p:first-child.disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.productbelt > div:last-child > div:last-child p:first-child.enabled {
+    background: rgb(41 84 255);
+    cursor: pointer;
+    opacity: 1;
+}
+
+.icon-wishlist{
+    height: 20px;
+    width: 20px;
+}
+
+/* Product Description Section */
+.productdescription {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    border-top: 1px solid #ddd;
+}
+
+.productdescription ul {
+    padding: 0;
+}
+
+.productdescription li {
+    margin-bottom: 5px;
+    font-size: 14px;
+}
+
+.productdescription > div > div > p {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Utility Classes */
+.size-button,
+.quantity-button {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.quantity-input {
+    pointer-events: none;
+    background-color: white;
+}
+
+@media (max-width: 899px) {
+    .productbelt {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Main image container */
+    .productbelt > div:nth-child(2) {
+        order: 1;
+        height: auto;
+        min-height: 300px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .productbelt > div:nth-child(2) img {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+
+    /* Thumbnail container */
+    .productbelt > div:first-child {
+        order: 2;
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: center;
+        padding: 20px;
+        flex-wrap: wrap;
+    }
+
+    .productbelt > div:first-child img {
+        height: 80px;
+        width: auto;
+        cursor: pointer;
+        border: 1px solid #ddd;
+    }
+
+    /* Product details container */
+    .productbelt > div:last-child {
+        order: 3;
+        padding: 20px;
+    }
+}
+
+
+@media (min-width: 600px) and (max-width: 899px){
+    .productbelt {
+        grid-template-columns: 1fr 2fr 2fr;
+    }
+
+    .productbelt > div:first-child {
+        padding: 20px;
+        justify-content: center;
+        gap: 15px;
+        margin: 0 auto;
+        max-width: 600px;
+    }
+
+    .productbelt > div:last-child {
+        padding: 0 30px;
+    }
+
+    .productbelt > div:first-child img {
+        width: 150px;
+        height: 100px;
+    }
+
+    .productbelt > div:nth-child(2) img {
+        width: 400px;
+    }
+
+    .productdescription {
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+    }
+}
+
+@media (min-width: 900px) {
+    .productbelt {
+        grid-template-columns: 0.7fr 2fr 2fr;
+    }
+
+    .productbelt > div:first-child {
+        flex-direction: column;
+    }
+
+    .productbelt > div:first-child img {
+        height: 120px;
+    }
+
+    .productbelt > div:nth-child(2) {
+        width: 450px;
+        height: 450px;
+        /* background-color: red; */
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px;
+    }
+
+    .productbelt > div:nth-child(2) img {
+        width: 500px;
+    }
+
+    .productdescription {
+        grid-template-columns: 1fr 1fr;
+        gap: 90px;
+        margin-top: 30px;
+    }
+}
+
+.breadcrumb{
+    font-size: 14px;
+}
+
+.breadcrumb a{
+    color: black;
+    text-decoration: underline;
+}
+
+
