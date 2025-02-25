@@ -1,12 +1,10 @@
-// Size Selection Implementation
 function initializeSizeSelection() {
     let fashionSizeDiv = Array.from(document.getElementsByTagName('div')).find(div => 
         div.querySelector('p')?.textContent === 'Fashion Size'
     );
 
-    // Get add to cart button
     let addToCartButton = document.querySelector('.productbelt > div:last-child > div:last-child p:first-child');
-    // Disable add to cart initially
+
     addToCartButton.classList.add('disabled');
 
     if (fashionSizeDiv) {
@@ -27,7 +25,6 @@ function initializeSizeSelection() {
                 this.classList.add('size-button-selected');
                 selectedSizeText.textContent = `Selected Fashion Size: ${size}`;
                 
-                // Enable add to cart when size is selected
                 addToCartButton.classList.remove('disabled');
                 addToCartButton.classList.add('enabled');
             };
@@ -39,7 +36,6 @@ function initializeSizeSelection() {
     }
 }
 
-// Quantity Control Implementation
 function initializeQuantityControl() {
     let quantityDiv = Array.from(document.getElementsByTagName('div')).find(div => 
         div.textContent === 'Quantity'
@@ -49,25 +45,21 @@ function initializeQuantityControl() {
         let quantityControl = document.createElement('div');
         quantityControl.className = 'quantity-control';
 
-        // Create decrement button
         let decrementButton = document.createElement('button');
         decrementButton.className = 'quantity-button decrement';
         decrementButton.textContent = '-';
-        decrementButton.classList.add('disabled'); // Initially disabled
+        decrementButton.classList.add('disabled');
 
-        // Create input
         let input = document.createElement('input');
         input.type = 'text';
         input.className = 'quantity-input';
         input.value = '1';
         input.readOnly = true;
 
-        // Create increment button
         let incrementButton = document.createElement('button');
         incrementButton.className = 'quantity-button increment';
         incrementButton.textContent = '+';
 
-        // Add event listeners
         decrementButton.onclick = function() {
             if (!this.classList.contains('disabled')) {
                 let currentValue = parseInt(input.value);
@@ -86,7 +78,6 @@ function initializeQuantityControl() {
             decrementButton.classList.remove('disabled');
         };
 
-        // Assemble controls
         quantityControl.appendChild(decrementButton);
         quantityControl.appendChild(input);
         quantityControl.appendChild(incrementButton);
@@ -95,25 +86,22 @@ function initializeQuantityControl() {
     }
 }
 
-// Initialize Thumbnail Gallery
 function initializeThumbnailGallery() {
     let thumbnailContainer = document.querySelector('.productbelt > div:first-child');
     let thumbnails = thumbnailContainer.getElementsByTagName('img');
 
-    // Set first image as active
     thumbnails[0].classList.add('active-thumbnail');
 
     Array.from(thumbnails).forEach(thumbnail => {
         thumbnail.onclick = function() {
-            // Remove active class from all thumbnails
+
             Array.from(thumbnails).forEach(thumb => thumb.classList.remove('active-thumbnail'));
-            // Add active class to clicked thumbnail
+
             this.classList.add('active-thumbnail');
         };
     });
 }
 
-// Initialize Favorites
 function initializeFavorites() {
     let favoritesButton = document.querySelector('.productbelt > div:last-child > div:last-child p:last-child');
     
@@ -122,7 +110,6 @@ function initializeFavorites() {
     };
 }
 
-// Execute all initializations
 initializeSizeSelection();
 initializeQuantityControl();
 initializeThumbnailGallery();
