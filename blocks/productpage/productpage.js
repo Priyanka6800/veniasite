@@ -1,41 +1,41 @@
-function initializeSizeSelection() {
-    let fashionSizeDiv = Array.from(document.getElementsByTagName('div')).find(div => 
-        div.querySelector('p')?.textContent === 'Fashion Size'
-    );
+const firstP = document.querySelector('.productpage > div:nth-child(3) > div:nth-child(2) > p:nth-child(1)');
+const secondP = document.querySelector('.productpage > div:nth-child(3) > div:nth-child(2) > p:nth-child(2)');
 
-    let addToCartButton = document.querySelector('.productbelt > div:last-child > div:last-child p:first-child');
+const sizeText = firstP.textContent.trim();
+const sizes = sizeText.split(' ').slice(2); 
 
-    addToCartButton.classList.add('disabled');
+firstP.textContent = "Fashion Size";
 
-    if (fashionSizeDiv) {
-        let fashionSizeText = fashionSizeDiv.querySelector('p:first-child');
-        let selectedSizeText = fashionSizeDiv.querySelector('p:last-child');
+const buttons = document.createElement('div');
+buttons.classList.add('buttons-container');
 
-        let sizeButtonsContainer = document.createElement('div');
-        sizeButtonsContainer.className = 'size-buttons';
+const handleButtonClick = (size, button) => {
 
-        ['S', 'L', 'M'].forEach(size => {
-            let button = document.createElement('button');
-            button.className = 'size-button';
-            button.textContent = size;
-            
-            button.onclick = function() {
-                let allButtons = document.querySelectorAll('.size-button');
-                allButtons.forEach(btn => btn.classList.remove('size-button-selected'));
-                this.classList.add('size-button-selected');
-                selectedSizeText.textContent = `Selected Fashion Size: ${size}`;
-                
-                addToCartButton.classList.remove('disabled');
-                addToCartButton.classList.add('enabled');
-            };
+    secondP.innerHTML = `Selected Fashion Size: <strong>${size}</strong>`;
 
-            sizeButtonsContainer.appendChild(button);
-        });
+    const allButtons = document.querySelectorAll('.size-button');
+    allButtons.forEach(btn => btn.classList.remove('selected'));
 
-        fashionSizeText.after(sizeButtonsContainer);
-    }
-}
+    button.classList.add('selected');
 
+    const addToCartButton = document.querySelector('.add-to-cart'); 
+    addToCartButton.disabled = false;
+    addToCartButton.style.cursor = 'pointer';
+};
+
+sizes.forEach(size => {
+    const button = document.createElement('button');
+    button.textContent = size;
+    button.classList.add('size-button');
+
+    button.addEventListener('click', () => handleButtonClick(size, button));
+
+    buttons.appendChild(button);
+});
+
+firstP.after(buttons);
+
+export default function decorate(block) {
 function initializeQuantityControl() {
     let quantityDiv = Array.from(document.getElementsByTagName('div')).find(div => 
         div.textContent === 'Quantity'
@@ -87,7 +87,7 @@ function initializeQuantityControl() {
 }
 
 function initializeThumbnailGallery() {
-    let thumbnailContainer = document.querySelector('.productbelt > div:first-child');
+    let thumbnailContainer = document.querySelector('.productpage > div:first-child');
     let thumbnails = thumbnailContainer.getElementsByTagName('img');
 
     thumbnails[0].classList.add('active-thumbnail');
@@ -103,14 +103,14 @@ function initializeThumbnailGallery() {
 }
 
 function initializeFavorites() {
-    let favoritesButton = document.querySelector('.productbelt > div:last-child > div:last-child p:last-child');
+    let favoritesButton = document.querySelector('.productpage > div:last-child > div:last-child p:last-child');
     
     favoritesButton.onclick = function() {
         alert('Please sign in before adding to favorites');
     };
 }
 
-initializeSizeSelection();
 initializeQuantityControl();
 initializeThumbnailGallery();
 initializeFavorites();
+}

@@ -1,5 +1,6 @@
-(async function () {
+export default async function decorate(block) {
 
+    const jsonlink=block.children[0].querySelector('a').href
     const productListContainer = document.querySelector(".productlist");
     const carouselDotsContainer = document.createElement("div");
     carouselDotsContainer.classList.add("carousel-dots");
@@ -10,15 +11,16 @@
     let productsPerSlide = getProductsPerSlide(); 
 
     try {
-        const response = await fetch("http://localhost:3000/query-index.json");
+        const response = await fetch(jsonlink);
         const data = await response.json();
 
         if (!data || !data.data || !Array.isArray(data.data)) {
             console.error("Invalid product data format:", data);
             return;
         }
-        
+
         products = data.data;
+        console.log(products)
 
         createCarousel(products);
 
@@ -71,12 +73,20 @@
             const productContainer = document.createElement("div");
             productContainer.classList.add("product-container");
 
+            const productlink = document.createElement('a');
+            productlink.href = `${product.path}`;
+
             const imageDiv = document.createElement("div");
             imageDiv.classList.add("product-image");
+            
+
             const img = document.createElement("img");
             img.src = product.productimage;
             img.alt = product.productname;
+            img.classList.add('product-image');
+
             imageDiv.appendChild(img);
+            productlink.appendChild(imageDiv);
 
             const nameDiv = document.createElement("div");
             nameDiv.classList.add("product-name");
@@ -101,7 +111,7 @@
             actionDiv.appendChild(cartButton);
             actionDiv.appendChild(wishlistIcon);
 
-            productContainer.appendChild(imageDiv);
+            productContainer.appendChild(productlink);
             productContainer.appendChild(nameDiv);
             productContainer.appendChild(priceDiv);
             productContainer.appendChild(actionDiv);
@@ -114,4 +124,9 @@
             dot.classList.toggle("active", i === index);
         });
     }
-})();
+}
+
+
+
+    // const chil=block.children;
+    // console.log(chil);
