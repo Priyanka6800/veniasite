@@ -1,17 +1,27 @@
 export default async function decorate(block) {
 
-    const jsonlink=block.children[0].querySelector('a').href
-    const productListContainer = document.querySelector(".productlist");
+    const jsonLink = block.children[0].querySelector('a').href;
+    
+    block.children[0].style.display = 'none';
+    
+    const productListWrapper = document.createElement("div");
+    productListWrapper.classList.add("productlist-wrapper");
+    block.appendChild(productListWrapper);
+    
+    const productListContainer = document.createElement("div");
+    productListContainer.classList.add("productlist");
+    productListWrapper.appendChild(productListContainer);
+    
     const carouselDotsContainer = document.createElement("div");
     carouselDotsContainer.classList.add("carousel-dots");
-    document.querySelector(".productlist-wrapper").appendChild(carouselDotsContainer);
+    productListWrapper.appendChild(carouselDotsContainer);
 
     let currentSlide = 0;
     let products = [];
     let productsPerSlide = getProductsPerSlide(); 
 
     try {
-        const response = await fetch(jsonlink);
+        const response = await fetch(jsonLink);
         const data = await response.json();
 
         if (!data || !data.data || !Array.isArray(data.data)) {
@@ -20,7 +30,7 @@ export default async function decorate(block) {
         }
 
         products = data.data;
-        console.log(products)
+        console.log(products);
 
         createCarousel(products);
 
@@ -38,13 +48,12 @@ export default async function decorate(block) {
 
     function getProductsPerSlide() {
         const width = window.innerWidth;
-        if (width < 600) return 1; 
+        if (width < 600) return 2; 
         if (width < 900) return 3;
         return 5;
     }
 
     function createCarousel(products) {
-
         productListContainer.innerHTML = "";
         carouselDotsContainer.innerHTML = "";
 
@@ -78,7 +87,6 @@ export default async function decorate(block) {
 
             const imageDiv = document.createElement("div");
             imageDiv.classList.add("product-image");
-            
 
             const img = document.createElement("img");
             img.src = product.productimage;
@@ -117,16 +125,10 @@ export default async function decorate(block) {
             productContainer.appendChild(actionDiv);
 
             productListContainer.appendChild(productContainer);
-
         });
 
-        document.querySelectorAll(".dot").forEach((dot, i) => {
+        block.querySelectorAll(".dot").forEach((dot, i) => {
             dot.classList.toggle("active", i === index);
         });
     }
 }
-
-
-
-    // const chil=block.children;
-    // console.log(chil);
